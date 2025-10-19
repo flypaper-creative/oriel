@@ -1,0 +1,23 @@
+{
+  "id": "shard-0199",
+  "type": "meta",
+  "origin_scene": "scene-080",
+  "origin_module": "builder",
+  "entities": [
+    "Caro",
+    "Agent"
+  ],
+  "mood": "neutral",
+  "vector": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "notes": "deterministic shard",
+  "presence_map": {
+    "Mara": true,
+    "Jonah": true,
+    "Caro": true,
+    "Agent": true
+  }
+}
