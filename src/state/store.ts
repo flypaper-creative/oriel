@@ -1,15 +1,36 @@
-import { create } from 'zustand'
-export type Shard = { id:string; label:string; t0:number; t1:number; color:string }
-type State = { shards: Shard[]; reso:number; viewStart:number; viewEnd:number; setShards:(s:Shard[])=>void; setReso:(n:number)=>void; setView:(a:number,b:number)=>void }
-const now = Date.now()
-export const useStore = create<State>((set)=> ({
-  shards: [
-    { id:'a', label:'Opening',  t0: now-5*60_000, t1: now-3*60_000, color:'#a855f7' },
-    { id:'b', label:'Inciting', t0: now-2*60_000, t1: now-60_000,  color:'#22c55e' },
-    { id:'c', label:'Decision', t0: now+30_000,  t1: now+90_000,  color:'#caff2c' }
-  ],
-  reso: now, viewStart: now-6*60_000, viewEnd: now+6*60_000,
-  setShards: (s)=> set({ shards: s }),
-  setReso:   (n)=> set({ reso: n }),
-  setView:   (a,b)=> set({ viewStart:a, viewEnd:b })
-}))
+import { create } from "zustand";
+import { immer } from "zustand/middleware/immer";
+
+export type Shard = { id: string; label: string; t0: number; t1: number; color: string; };
+
+type UIState = {
+  running: boolean;
+  reso: number;
+  viewStart: number;
+  viewEnd: number;
+  shards: Shard[];
+  selected: Shard | null;
+  log: string[];
+  setRunning(v:boolean): void;
+  setReso(v:number): void;
+  setView(s:number, e:number): void;
+  setShards(a:Shard[]): void;
+  setSelected(s:Shard|null): void;
+  pushLog(x:string): void;
+};
+
+export const useStore = create<UIState>()(immer((set)=>({
+  running: false,
+  reso: Date.now(),
+  viewStart: Date.now()-5*60_000,
+  viewEnd: Date.now()+10*60_000,
+  shards: [],
+  selected: null,
+  log: [],
+  setRunning: (v)=> set(s=>{ s.running=v; }),
+  setReso: (v)=> set(s=>{ s.reso=v; }),
+  setView: (a,b)=> set(s=>{ s.viewStart=a; s.viewEnd=b; }),
+  setShards: (arr)=> set(s=>{ s.shards = arr; }),
+  setSelected: (sel)=> set(s=>{ s.selected = sel; }),
+  pushLog: (x)=> set(s=>{ s.log.unshift(`${new Date().toLocaleTimeString()} — ${x}`); s.log = s.log.slice(0,200); }),
+})));

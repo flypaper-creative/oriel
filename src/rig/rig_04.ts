@@ -1,0 +1,14 @@
+/* Auto-generated rig entity: 04 */
+export interface RIG_04 {
+  id: string;
+  label: string;
+  location?: { x:number; y:number; z?:number };
+  status?: 'idle'|'active'|'offline'|'error';
+  meta?: Record<string, any>;
+}
+
+/** factory helper */
+export function createRig_04(label = 'Rig 04') : RIG_04 {
+  return { id: `${label}_${Date.now()}`, label, location: { x:0,y:0 }, status: 'idle', meta: {} };
+}
+

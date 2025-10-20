@@ -6,3 +6,18 @@ dist/
 coverage/
 *.log
 *.tar.gz
+# secrets
+.env
+.env.*
+!.env.example
+# build/caches
+node_modules/
+dist/
+.cache/
+.next/
+.vite/
+*.log
+npm-debug.log*
+yarn-error.log
+pnpm-lock.yaml
+.DS_Store
